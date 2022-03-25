@@ -15,9 +15,13 @@ export class TableParticle {
 
   private _drawBorder(ctx: CanvasRenderingContext2D, startX: number, startY: number, width: number, height: number) {
     ctx.beginPath()
+    ctx.translate(0.5, 0)
     ctx.moveTo(startX, startY + height)
     ctx.lineTo(startX, startY)
+    ctx.translate(0, 0.5)
+    ctx.moveTo(startX, startY)
     ctx.lineTo(startX + width, startY)
+    ctx.translate(-0.5, -0.5)
     ctx.stroke()
   }
 
@@ -174,9 +178,13 @@ export class TableParticle {
         const y = td.y! * scale + startY
         // 绘制线条
         ctx.beginPath()
+        ctx.translate(0.5, 0)
         ctx.moveTo(x, y)
         ctx.lineTo(x, y + height)
+        ctx.translate(0, 0.5)
+        ctx.moveTo(x, y + height)
         ctx.lineTo(x - width, y + height)
+        ctx.translate(-0.5, -0.5)
         ctx.stroke()
       }
     }

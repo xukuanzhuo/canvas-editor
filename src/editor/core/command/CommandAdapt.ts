@@ -385,7 +385,7 @@ export class CommandAdapt {
     const innerWidth = width - margins[1] - margins[3]
     // colgroup
     const colgroup: IColgroup[] = []
-    const colWidth = innerWidth / col
+    const colWidth = Math.floor(innerWidth / col)
     for (let c = 0; c < col; c++) {
       colgroup.push({
         width: colWidth
@@ -592,7 +592,7 @@ export class CommandAdapt {
     const colgroupWidth = colgroup.reduce((pre, cur) => pre + cur.width, 0)
     const width = this.draw.getOriginalInnerWidth()
     if (colgroupWidth > width) {
-      const adjustWidth = (colgroupWidth - width) / colgroup.length
+      const adjustWidth = Math.floor((colgroupWidth - width) / colgroup.length)
       for (let g = 0; g < colgroup.length; g++) {
         const group = colgroup[g]
         group.width -= adjustWidth
@@ -650,7 +650,7 @@ export class CommandAdapt {
     const colgroupWidth = colgroup.reduce((pre, cur) => pre + cur.width, 0)
     const width = this.draw.getOriginalInnerWidth()
     if (colgroupWidth > width) {
-      const adjustWidth = (colgroupWidth - width) / colgroup.length
+      const adjustWidth = Math.floor((colgroupWidth - width) / colgroup.length)
       for (let g = 0; g < colgroup.length; g++) {
         const group = colgroup[g]
         group.width -= adjustWidth
