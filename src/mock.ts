@@ -476,6 +476,29 @@ elementList.push({
   }
 })
 
+elementList.push({
+  width: 490,
+  height: 210,
+  type: ElementType.CHART,
+  value: JSON.stringify({
+    xAxis: {
+      type: 'category',
+      boundaryGap: false,
+      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: [
+      {
+        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        type: 'line',
+        areaStyle: {}
+      }
+    ]
+  })
+})
+
 export const data: IElement[] = elementList
 
 interface IComment {
