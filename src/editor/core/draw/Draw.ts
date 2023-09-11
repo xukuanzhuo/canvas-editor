@@ -214,7 +214,6 @@ export class Draw {
 
     this.canvasEvent = new CanvasEvent(this)
     this.cursor = new Cursor(this, this.canvasEvent)
-    this.canvasEvent.register()
     this.globalEvent = new GlobalEvent(this, this.canvasEvent)
     this.globalEvent.register()
 
@@ -238,6 +237,7 @@ export class Draw {
       isInit: true,
       isSetCursor: false
     })
+    this.canvasEvent.register()
   }
 
   public getLetterReg(): RegExp {
@@ -1546,6 +1546,7 @@ export class Draw {
         }
         // 元素绘制
         if (element.type === ElementType.IMAGE) {
+          // console.log('element position', x, y, offsetY, element)
           this._drawRichText(ctx)
           this.imageParticle.render(ctx, element, x, y + offsetY)
         } else if (element.type === ElementType.LATEX) {

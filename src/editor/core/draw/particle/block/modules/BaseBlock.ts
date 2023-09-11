@@ -5,11 +5,12 @@ import { Draw } from '../../../Draw'
 import { BlockParticle } from '../BlockParticle'
 import { IFrameBlock } from './IFrameBlock'
 import { VideoBlock } from './VideoBlock'
+import { ChartBlock } from './ChartBlock'
 
 export class BaseBlock {
   private draw: Draw
   private element: IRowElement
-  private block: IFrameBlock | VideoBlock | null
+  private block: IFrameBlock | VideoBlock | ChartBlock | null
   private blockContainer: HTMLDivElement
   private blockItem: HTMLDivElement
 
@@ -39,6 +40,9 @@ export class BaseBlock {
       this.block.render(this.blockItem)
     } else if (block.type === BlockType.VIDEO) {
       this.block = new VideoBlock(this.element)
+      this.block.render(this.blockItem)
+    } else if (block.type === BlockType.CHART) {
+      this.block = new ChartBlock(this.element, this.draw)
       this.block.render(this.blockItem)
     }
   }

@@ -262,10 +262,14 @@ export class Position {
     if (!positionList) {
       positionList = this.getOriginalPositionList()
     }
+    console.log('getPositionByXY', x, y)
     const zoneManager = this.draw.getZone()
     const curPageNo = this.draw.getPageNo()
     const isMainActive = zoneManager.isMainActive()
+    console.log('isMainActive', isMainActive)
     const positionNo = isMainActive ? curPageNo : 0
+    console.log('curPageNo', curPageNo)
+    console.log('positionNo', positionNo)
     for (let j = 0; j < positionList.length; j++) {
       const {
         index,
@@ -354,6 +358,13 @@ export class Position {
             if (isFirstLetter) {
               hitLineStartIndex = j
             }
+          }
+        }
+        if (element.type === ElementType.BLOCK) {
+          return {
+            index: curPositionIndex,
+            isDirectHit: true,
+            isBlock: true
           }
         }
         return {
@@ -472,6 +483,7 @@ export class Position {
     payload: IGetPositionByXYPayload
   ): ICurrentPosition | null {
     const positionResult = this.getPositionByXY(payload)
+    // console.log('adjustPositionContext positionResult', positionResult);
     if (!~positionResult.index) return null
     // 移动控件内光标
     if (

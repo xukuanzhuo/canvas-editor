@@ -10,6 +10,7 @@ export interface ICurrentPosition {
   isControl?: boolean
   isImage?: boolean
   isTable?: boolean
+  isBlock?: boolean
   isDirectHit?: boolean
   trIndex?: number
   tdIndex?: number

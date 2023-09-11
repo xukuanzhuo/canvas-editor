@@ -65,6 +65,7 @@
     "vue": "^3.2.45"
   },
   "dependencies": {
+    "echarts": "^5.4.3",
     "prismjs": "^1.27.0"
   },
   "simple-git-hooks": {
