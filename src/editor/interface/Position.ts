@@ -11,6 +11,7 @@ export interface ICurrentPosition {
   isImage?: boolean
   isTable?: boolean
   isBlock?: boolean
+  isChart?: boolean
   isDirectHit?: boolean
   trIndex?: number
   tdIndex?: number

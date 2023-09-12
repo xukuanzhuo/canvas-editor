@@ -19,7 +19,6 @@ function getElementIndexByDragId(dragId: string, elementList: IElement[]) {
 }
 
 export function mouseup(evt: MouseEvent, host: CanvasEvent) {
-  console.log('mouseup host', host)
   // 判断是否允许拖放
   if (host.isAllowDrop) {
     const draw = host.getDraw()

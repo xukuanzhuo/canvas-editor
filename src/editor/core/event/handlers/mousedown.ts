@@ -46,7 +46,7 @@ export function mousedown(evt: MouseEvent, host: CanvasEvent) {
     isCheckbox,
     isImage,
     isTable,
-    isBlock,
+    isChart,
     tdValueIndex,
     hitLineStartIndex
   } = positionResult
@@ -62,8 +62,8 @@ export function mousedown(evt: MouseEvent, host: CanvasEvent) {
   const curElement = elementList[curIndex]
   // 绘制
   const isDirectHitImage = !!(isDirectHit && isImage)
+  const isDirectHitChart = !!(isDirectHit && isChart)
   const isDirectHitCheckbox = !!(isDirectHit && isCheckbox)
-  const isDirectHitBlock = !!(isDirectHit && isBlock)
   if (~index) {
     rangeManager.setRange(curIndex, curIndex)
     position.setCursorPosition(positionList[curIndex])
@@ -100,7 +100,7 @@ export function mousedown(evt: MouseEvent, host: CanvasEvent) {
   // 预览工具组件
   const previewer = draw.getPreviewer()
   previewer.clearResizer()
-  if ((isDirectHitImage || isDirectHitBlock) && !isReadonly) {
+  if ((isDirectHitImage || isDirectHitChart) && !isReadonly) {
     previewer.drawResizer(
       curElement,
       positionList[curIndex],

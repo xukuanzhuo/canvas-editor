@@ -1519,6 +1519,10 @@ window.onload = function () {
     document.querySelector<HTMLSpanElement>('.word-count')!.innerText = `${
       wordCount || 0
     }`
+
+    const data = instance.command.getValue()
+    console.log('handleContentChange data', data)
+
     // 目录
     if (isCatalogShow) {
       nextTick(() => {

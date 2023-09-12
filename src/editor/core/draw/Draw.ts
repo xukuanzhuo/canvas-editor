@@ -71,6 +71,7 @@ import { Previewer } from './particle/previewer/Previewer'
 import { DateParticle } from './particle/date/DateParticle'
 import { IMargin } from '../../interface/Margin'
 import { BlockParticle } from './particle/block/BlockParticle'
+import { ChartParticle } from './particle/chart/ChartParticle'
 import { EDITOR_COMPONENT, EDITOR_PREFIX } from '../../dataset/constant/Editor'
 import { I18n } from '../i18n/I18n'
 import { ImageObserver } from '../observer/ImageObserver'
@@ -132,6 +133,7 @@ export class Draw {
   private subscriptParticle: SubscriptParticle
   private checkboxParticle: CheckboxParticle
   private blockParticle: BlockParticle
+  private chartParticle: ChartParticle
   private listParticle: ListParticle
   private control: Control
   private workerManager: WorkerManager
@@ -205,6 +207,7 @@ export class Draw {
     this.subscriptParticle = new SubscriptParticle()
     this.checkboxParticle = new CheckboxParticle(this)
     this.blockParticle = new BlockParticle(this)
+    this.chartParticle = new ChartParticle(this)
     this.listParticle = new ListParticle(this)
     this.control = new Control(this)
 
@@ -1280,6 +1283,12 @@ export class Draw {
         metrics.height = element.height! * scale
         metrics.boundingBoxDescent = metrics.height
         metrics.boundingBoxAscent = 0
+      } else if (element.type === ElementType.CHART) {
+        const elementWidth = element.width! * scale
+        const elementHeight = element.height! * scale
+        metrics.width = elementWidth
+        metrics.height = elementHeight
+        metrics.boundingBoxDescent = elementHeight
       } else {
         // 设置上下标真实字体尺寸
         const size = element.size || defaultSize
@@ -1592,6 +1601,9 @@ export class Draw {
         } else if (element.type === ElementType.BLOCK) {
           this._drawRichText(ctx)
           this.blockParticle.render(pageNo, element, x, y)
+        } else if (element.type === ElementType.CHART) {
+          this._drawRichText(ctx)
+          this.chartParticle.render(ctx, element, x, y + offsetY)
         } else {
           this.textParticle.record(ctx, element, x, y + offsetY)
           // 如果设置字宽需单独绘制
