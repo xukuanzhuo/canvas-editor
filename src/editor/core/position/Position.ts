@@ -116,7 +116,8 @@ export class Position {
         const offsetY =
           (element.imgDisplay !== ImageDisplay.INLINE &&
             element.type === ElementType.IMAGE) ||
-          element.type === ElementType.LATEX
+          element.type === ElementType.LATEX ||
+          element.type === ElementType.CHART
             ? curRow.ascent - metrics.height
             : curRow.ascent
         // 偏移量

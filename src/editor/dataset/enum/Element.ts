@@ -15,5 +15,6 @@ export enum ElementType {
   BLOCK = 'block',
   TITLE = 'title',
   LIST = 'list',
-  CHART = 'chart'
+  CHART = 'chart',
+  DYNAMIC_TEXT = 'dynamicText'
 }

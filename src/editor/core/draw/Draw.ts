@@ -216,6 +216,7 @@ export class Draw {
     this.imageObserver = new ImageObserver()
 
     this.canvasEvent = new CanvasEvent(this)
+    this.canvasEvent.register()
     this.cursor = new Cursor(this, this.canvasEvent)
     this.globalEvent = new GlobalEvent(this, this.canvasEvent)
     this.globalEvent.register()
@@ -240,7 +241,6 @@ export class Draw {
       isInit: true,
       isSetCursor: false
     })
-    this.canvasEvent.register()
   }
 
   public getLetterReg(): RegExp {
@@ -1069,7 +1069,8 @@ export class Draw {
       const availableWidth = innerWidth - offsetX
       if (
         element.type === ElementType.IMAGE ||
-        element.type === ElementType.LATEX
+        element.type === ElementType.LATEX ||
+        element.type === ElementType.CHART
       ) {
         const elementWidth = element.width! * scale
         const elementHeight = element.height! * scale
@@ -1283,12 +1284,6 @@ export class Draw {
         metrics.height = element.height! * scale
         metrics.boundingBoxDescent = metrics.height
         metrics.boundingBoxAscent = 0
-      } else if (element.type === ElementType.CHART) {
-        const elementWidth = element.width! * scale
-        const elementHeight = element.height! * scale
-        metrics.width = elementWidth
-        metrics.height = elementHeight
-        metrics.boundingBoxDescent = elementHeight
       } else {
         // 设置上下标真实字体尺寸
         const size = element.size || defaultSize
@@ -1320,9 +1315,10 @@ export class Draw {
       const ascent =
         (element.imgDisplay !== ImageDisplay.INLINE &&
           element.type === ElementType.IMAGE) ||
-        element.type === ElementType.LATEX
-          ? metrics.height + rowMargin
-          : metrics.boundingBoxAscent + rowMargin
+          element.type === ElementType.LATEX ||
+          element.type == ElementType.CHART
+            ? metrics.height + rowMargin
+            : metrics.boundingBoxAscent + rowMargin
       const height =
         rowMargin +
         metrics.boundingBoxAscent +
@@ -1555,7 +1551,6 @@ export class Draw {
         }
         // 元素绘制
         if (element.type === ElementType.IMAGE) {
-          // console.log('element position', x, y, offsetY, element)
           this._drawRichText(ctx)
           this.imageParticle.render(ctx, element, x, y + offsetY)
         } else if (element.type === ElementType.LATEX) {
@@ -1594,6 +1589,9 @@ export class Draw {
           this.checkboxParticle.render(ctx, element, x, y + offsetY)
         } else if (element.type === ElementType.TAB) {
           this._drawRichText(ctx)
+        } else if (element.type === ElementType.CHART) {
+          this._drawRichText(ctx)
+          this.chartParticle.render(ctx, element, x, y + offsetY)
         } else if (element.rowFlex === RowFlex.ALIGNMENT) {
           // 如果是两端对齐，因canvas目前不支持letterSpacing需单独绘制文本
           this.textParticle.record(ctx, element, x, y + offsetY)
@@ -1601,9 +1599,6 @@ export class Draw {
         } else if (element.type === ElementType.BLOCK) {
           this._drawRichText(ctx)
           this.blockParticle.render(pageNo, element, x, y)
-        } else if (element.type === ElementType.CHART) {
-          this._drawRichText(ctx)
-          this.chartParticle.render(ctx, element, x, y + offsetY)
         } else {
           this.textParticle.record(ctx, element, x, y + offsetY)
           // 如果设置字宽需单独绘制

@@ -59,7 +59,6 @@ window.onload = function () {
     },
     options
   )
-  console.log('实例: ', instance)
   // cypress使用
   Reflect.set(window, 'editor', instance)
 
@@ -1520,9 +1519,6 @@ window.onload = function () {
       wordCount || 0
     }`
 
-    const data = instance.command.getValue()
-    console.log('handleContentChange data', data)
-
     // 目录
     if (isCatalogShow) {
       nextTick(() => {
@@ -1534,6 +1530,9 @@ window.onload = function () {
       updateComment()
     })
   }
+
+  instance.listener.saved = (e: any) => console.log('saved', e)
+
   instance.listener.contentChange = debounce(handleContentChange, 200)
   handleContentChange()
 

@@ -36,6 +36,7 @@ export class ChartParticle {
       const chartIns = echarts.init(chartContainer)
       chartIns.setOption({
         animation: false,
+        backgroundColor: 'rgba(25, 55, 88, .02)',
         xAxis: {
           type: 'category',
           boundaryGap: false,
